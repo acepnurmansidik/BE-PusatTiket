@@ -8,13 +8,20 @@ const config = require("../../config");
 module.exports = {
   viewFilm: async (req, res) => {
     try {
+      const alertMessage = req.flash("alertMessage");
+      const alertStatus = req.flash("alertStatus");
+      const alert = { message: alertMessage, status: alertStatus };
+
       let films = await Film.find();
       res.render("admin/Film/viewFilm", {
         title: `Admin | Film`,
         films,
+        alert,
       });
     } catch (err) {
-      console.log(err.message);
+      req.flash("alertMessage", `${err.message}`);
+      req.flash("alertStatus", `danger`);
+      res.redirect("/film");
     }
   },
   viewAddFilm: async (req, res) => {
@@ -25,7 +32,9 @@ module.exports = {
         genres,
       });
     } catch (err) {
-      console.log(err.message);
+      req.flash("alertMessage", `${err.message}`);
+      req.flash("alertStatus", `danger`);
+      res.redirect("/film");
     }
   },
   actionAddFilm: async (req, res) => {
@@ -56,21 +65,29 @@ module.exports = {
         src.on("end", async () => {
           try {
             const film = new Film({ ...payload, thumbnail: filename });
-
             await film.save();
+
+            req.flash("alertMessage", `Successfuly create new film`);
+            req.flash("alertStatus", `success`);
             res.redirect("/film");
           } catch (err) {
-            console.log(err);
+            req.flash("alertMessage", `${err.message}`);
+            req.flash("alertStatus", `danger`);
             res.redirect("/film");
           }
         });
       } else {
         const film = await Film({ ...payload });
         await film.save();
+
+        req.flash("alertMessage", `Suuccessfuly create new film`);
+        req.flash("alertStatus", `success`);
         res.redirect("/film");
       }
     } catch (err) {
-      console.log(err.message);
+      req.flash("alertMessage", `${err.message}`);
+      req.flash("alertStatus", `danger`);
+      res.redirect("/film");
     }
   },
   viewDetailFilm: async (req, res) => {
@@ -85,7 +102,9 @@ module.exports = {
         genres,
       });
     } catch (err) {
-      console.log(err.message);
+      req.flash("alertMessage", `${err.message}`);
+      req.flash("alertStatus", `danger`);
+      res.redirect("/film");
     }
   },
   viewEditFilm: async (req, res) => {
@@ -103,7 +122,9 @@ module.exports = {
         genres,
       });
     } catch (err) {
-      console.log(err);
+      req.flash("alertMessage", `${err.message}`);
+      req.flash("alertStatus", `danger`);
+      res.redirect("/film");
     }
   },
   actionEditFilm: async (req, res) => {
@@ -155,9 +176,12 @@ module.exports = {
               }
             );
 
+            req.flash("alertMessage", `Successfuly update film`);
+            req.flash("alertStatus", `success`);
             res.redirect("/film");
           } catch (err) {
-            console.log(err);
+            req.flash("alertMessage", `${err.message}`);
+            req.flash("alertStatus", `danger`);
             res.redirect("/film");
           }
         });
@@ -169,19 +193,29 @@ module.exports = {
             showTime,
           }
         );
+
+        req.flash("alertMessage", `Successfuly update film`);
+        req.flash("alertStatus", `success`);
         res.redirect("/film");
       }
     } catch (err) {
-      console.log(err);
+      req.flash("alertMessage", `${err.message}`);
+      req.flash("alertStatus", `danger`);
+      res.redirect("/film");
     }
   },
   actionDeleteFilm: async (req, res) => {
     try {
       const { id } = req.params;
       await Film.findOneAndRemove({ _id: id });
+
+      req.flash("alertMessage", `Successfuly delete film`);
+      req.flash("alertStatus", `success`);
       res.redirect("/film");
     } catch (err) {
-      console.log(err);
+      req.flash("alertMessage", `${err.message}`);
+      req.flash("alertStatus", `danger`);
+      res.redirect("/film");
     }
   },
 };
