@@ -1,0 +1,42 @@
+<table id="example1" class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Title</th>
+      <th>Nominal</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% tickets.map((ticket,i)=>{ %>
+    <tr>
+      <td><%= i+1 %></td>
+      <td><%= ticket.film.title %></td>
+      <td>
+        <span class="badge badge-success"
+          ><%= ticket.nominal.typeName %> | <%= ticket.nominal.price %></span
+        >
+      </td>
+      <td>
+        <form
+          action="/ticket/delete/<%= ticket._id %>?_method=DELETE"
+          method="POST"
+        >
+          <a class="btn btn-info btn-sm" href="/ticket/detail/<%= ticket._id %>"
+            ><i class="fas fa-info-circle"></i> Detail</a
+          >
+
+          <a
+            class="btn btn-warning btn-sm"
+            href="/ticket/update/<%= ticket._id %>"
+            ><i class="fas fa-pencil-alt"></i> Edit</a
+          >
+          <button type="submit" class="btn btn-danger btn-sm">
+            <i class="fas fa-trash"></i> Delete
+          </button>
+        </form>
+      </td>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>

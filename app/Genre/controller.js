@@ -3,13 +3,21 @@ const Genre = require("./model");
 module.exports = {
   viewGenre: async (req, res) => {
     try {
+      const alertMessage = req.flash("alertMessage");
+      const alertStatus = req.flash("alertStatus");
+      const alert = { message: alertMessage, status: alertStatus };
+
       let genres = await Genre.find();
+
       res.render("admin/Genre/viewGenre", {
         title: `Admin | Genre`,
         genres,
+        alert,
       });
     } catch (err) {
-      console.log(err.message);
+      req.flash("alertMessage", `${err.message}`);
+      req.flash("alertStatus", `danger`);
+      res.redirect("/genre");
     }
   },
   viewAddGenre: async (req, res) => {
@@ -18,7 +26,9 @@ module.exports = {
         title: `Admin | Create Genre`,
       });
     } catch (err) {
-      console.log(err.message);
+      req.flash("alertMessage", `${err.message}`);
+      req.flash("alertStatus", `danger`);
+      res.redirect("/genre");
     }
   },
   actionAddGenre: async (req, res) => {
@@ -27,9 +37,13 @@ module.exports = {
       let genre = await Genre({ name });
       await genre.save();
 
+      req.flash("alertMessage", `Succesfully create genre!`);
+      req.flash("alertStatus", `success`);
       res.redirect("/genre");
     } catch (err) {
-      console.log(err.message);
+      req.flash("alertMessage", `${err.message}`);
+      req.flash("alertStatus", `danger`);
+      res.redirect("/genre");
     }
   },
   viewUpdateGenre: async (req, res) => {
@@ -42,7 +56,9 @@ module.exports = {
         genre,
       });
     } catch (err) {
-      console.log(err.message);
+      req.flash("alertMessage", `${err.message}`);
+      req.flash("alertStatus", `danger`);
+      res.redirect("/genre");
     }
   },
   actionUpdateGenre: async (req, res) => {
@@ -51,9 +67,13 @@ module.exports = {
       const { name } = req.body;
 
       await Genre.findOneAndUpdate({ _id: id }, { name });
+      req.flash("alertMessage", `Successfuly update genre!`);
+      req.flash("alertStatus", `danger`);
       res.redirect("/genre");
     } catch (err) {
-      console.log(err.message);
+      req.flash("alertMessage", `${err.message}`);
+      req.flash("alertStatus", `danger`);
+      res.redirect("/genre");
     }
   },
   actionDeleteGenre: async (req, res) => {
@@ -61,9 +81,13 @@ module.exports = {
       const { id } = req.params;
 
       await Genre.findOneAndRemove({ _id: id });
+      req.flash("alertMessage", `Successfuly delete genre!`);
+      req.flash("alertStatus", `danger`);
       res.redirect("/genre");
     } catch (err) {
-      console.log(err.message);
+      req.flash("alertMessage", `${err.message}`);
+      req.flash("alertStatus", `danger`);
+      res.redirect("/genre");
     }
   },
 };

@@ -3,13 +3,20 @@ const Nominal = require("./model");
 module.exports = {
   viewNominal: async (req, res) => {
     try {
+      const alertMessage = req.flash("alertMessage");
+      const alertStatus = req.flash("alertStatus");
+      const alert = { message: alertMessage, status: alertStatus };
+
       let nominals = await Nominal.find();
       res.render("admin/Nominal/viewNominal", {
         title: `Admin | Nominal`,
         nominals,
+        alert,
       });
     } catch (err) {
-      console.log(err.message);
+      req.flash("alertMessage", `${err.message}`);
+      req.flash("alertStatus", `danger`);
+      res.redirect("/nominal");
     }
   },
   viewAddNominal: async (req, res) => {
@@ -18,7 +25,9 @@ module.exports = {
         title: `Admin | Create Nominal`,
       });
     } catch (err) {
-      console.log(err.message);
+      req.flash("alertMessage", `${err.message}`);
+      req.flash("alertStatus", `danger`);
+      res.redirect("/nominal");
     }
   },
   actionAddNominal: async (req, res) => {
@@ -26,9 +35,14 @@ module.exports = {
       const { typeName, price } = req.body;
       let nominal = await Nominal({ typeName, price });
       await nominal.save();
+
+      req.flash("alertMessage", `Successfuly create nominal!`);
+      req.flash("alertStatus", `success`);
       res.redirect("/nominal");
     } catch (err) {
-      console.log(err.message);
+      req.flash("alertMessage", `${err.message}`);
+      req.flash("alertStatus", `danger`);
+      res.redirect("/nominal");
     }
   },
   viewEditNominal: async (req, res) => {
@@ -37,10 +51,12 @@ module.exports = {
       let nominal = await Nominal.findOne({ _id: id });
       res.render("admin/Nominal/updateNominal", {
         title: `Admin | Update Nominal`,
-        nominal
+        nominal,
       });
     } catch (err) {
-      console.log(err.message);
+      req.flash("alertMessage", `${err.message}`);
+      req.flash("alertStatus", `danger`);
+      res.redirect("/nominal");
     }
   },
   actionEditNominal: async (req, res) => {
@@ -49,9 +65,14 @@ module.exports = {
       const { typeName, price } = req.body;
 
       await Nominal.findOneAndUpdate({ _id: id }, { typeName, price });
+
+      req.flash("alertMessage", `Successfuly update nominal!`);
+      req.flash("alertStatus", `success`);
       res.redirect("/nominal");
     } catch (err) {
-      console.log(err.message);
+      req.flash("alertMessage", `${err.message}`);
+      req.flash("alertStatus", `danger`);
+      res.redirect("/nominal");
     }
   },
   actionDeleteNominal: async (req, res) => {
@@ -59,9 +80,14 @@ module.exports = {
       const { id } = req.params;
 
       await Nominal.findOneAndRemove({ _id: id });
+
+      req.flash("alertMessage", `Successfuly delete nominal!`);
+      req.flash("alertStatus", `success`);
       res.redirect("/nominal");
     } catch (err) {
-      console.log(err.message);
+      req.flash("alertMessage", `${err.message}`);
+      req.flash("alertStatus", `danger`);
+      res.redirect("/nominal");
     }
   },
 };
