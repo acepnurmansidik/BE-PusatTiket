@@ -8,12 +8,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>User</h1>
+          <h1>Detail</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="/user">Home</a></li>
-            <li class="breadcrumb-item active">Create</li>
+            <li class="breadcrumb-item active">Detail</li>
           </ol>
         </div>
       </div>
@@ -27,12 +27,24 @@
       <!-- general form elements -->
       <div class="card card-primary">
         <div class="card-header">
-          <h3 class="card-title">Create New User</h3>
+          <h3 class="card-title">Detail User</h3>
         </div>
         <!-- /.card-header -->
         <!-- form start -->
         <form action="/user/create" method="POST" enctype="multipart/form-data">
           <div class="card-body">
+            <div class="form-group">
+              <input type="text" name="name" id="name" placeholder="Enter amount
+              seat" <% if(user.status==="enable"){ %> class="form-control
+              bg-success" value="Actice" <% }else{ %> class="form-control
+              bg-danger" value="Not active" <% } %> disabled />
+            </div>
+            <img
+              class="mb-2"
+              src="http://localhost:3000/uploads/user/<%= user.thumbnail %> "
+              id="preview"
+              alt=""
+            />
             <div class="form-group">
               <label for="name">Name</label>
               <input
@@ -41,7 +53,8 @@
                 name="name"
                 id="name"
                 placeholder="Enter amount seat"
-                required
+                value="<%= user.name %>"
+                disabled
               />
             </div>
             <div class="form-group">
@@ -52,7 +65,8 @@
                 name="phoneNumber"
                 id="phoneNumber"
                 placeholder="Enter amount seat"
-                required
+                value="0<%= user.phoneNumber %>"
+                disabled
               />
             </div>
             <div class="form-group">
@@ -63,38 +77,56 @@
                 name="email"
                 id="email"
                 placeholder="Enter email"
+                value="<%= user.email %>"
+                disabled
+              />
+            </div>
+            <div class="form-group">
+              <label for="role">Role</label>
+              <input
+                type="text"
+                class="form-control"
+                name="role"
+                id="role"
+                placeholder="Enter amount seat"
+                value="<%= user.role %>"
+                disabled
               />
             </div>
             <div class="form-group">
               <label for="gender">Gender</label>
-              <select class="form-control select2" name="gender" id="gender">
-                <option value="Pria">Pria</option>
-                <option value="Wanita">Wanita</option>
-              </select>
+              <input
+                type="text"
+                class="form-control"
+                name="gender"
+                id="gender"
+                value="<%= user.gender %>"
+                disabled
+              />
             </div>
             <div class="form-group">
               <label for="ttl">TTL</label>
               <input
-                type="date"
+                type="text"
                 class="form-control"
                 name="ttl"
                 id="ttl"
-                placeholder="Enter ttl seat"
-                required
+                placeholder="Enter amount seat"
+                value="<%= user.ttl %>"
+                disabled
               />
             </div>
             <div class="form-group">
               <label for="venue">Venue</label>
-              <div class="select2-purple">
-                <select class="form-control select2" name="venue" id="venue">
-                  <option value="">--Select venue---</option>
-                  <% venues.map(venue=>{ %>
-                  <option value="<%= venue._id %>">
-                    <%= venue.location %>
-                  </option>
-                  <% }) %>
-                </select>
-              </div>
+              <input
+                type="text"
+                class="form-control"
+                name="venue"
+                id="venue"
+                placeholder="Enter amount seat"
+                value="<%= user.venue.location %> | <%= user.venue.address %>"
+                disabled
+              />
             </div>
             <div class="form-group">
               <label for="address">Address</label>
@@ -106,25 +138,25 @@
                 placeholder="Enter address"
                 cols="10"
                 rows="5"
-                required
-              ></textarea>
+                disabled
+              >
+value="<%= user.address %>"</textarea
+              >
               <div class="form-group">
                 <label for="image">Foto</label>
-                <input
-                  type="file"
-                  class="form-control"
-                  name="image"
-                  id="image"
-                  placeholder="Enter image seat"
-                />
               </div>
-              <img src="" id="preview" alt="" />
             </div>
           </div>
           <!-- /.card-body -->
 
           <div class="card-footer">
-            <button type="submit" class="btn btn-primary">Submit</button>
+            <a href="/user" type="submit" class="btn btn-primary">Back</a>
+            <a
+              href="/user/update/<%= user._id %>"
+              type="submit"
+              class="btn btn-primary"
+              >Edit</a
+            >
           </div>
         </form>
       </div>

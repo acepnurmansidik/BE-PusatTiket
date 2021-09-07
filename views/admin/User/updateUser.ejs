@@ -27,12 +27,18 @@
       <!-- general form elements -->
       <div class="card card-primary">
         <div class="card-header">
-          <h3 class="card-title">Create New User</h3>
+          <h3 class="card-title">Update User</h3>
         </div>
         <!-- /.card-header -->
         <!-- form start -->
-        <form action="/user/create" method="POST" enctype="multipart/form-data">
+        <form action="/user/update/<%= user._id %>?_method=PUT" method="POST" enctype="multipart/form-data">
           <div class="card-body">
+            <div class="form-group">
+              <input type="text" name="name" id="name" placeholder="Enter amount
+              seat" <% if(user.status==="enable"){ %> class="form-control
+              bg-success" value="Actice" <% }else{ %> class="form-control
+              bg-danger" value="Not active" <% } %> disabled />
+            </div>
             <div class="form-group">
               <label for="name">Name</label>
               <input
@@ -41,7 +47,7 @@
                 name="name"
                 id="name"
                 placeholder="Enter amount seat"
-                required
+                value="<%= user.name %>"
               />
             </div>
             <div class="form-group">
@@ -52,7 +58,7 @@
                 name="phoneNumber"
                 id="phoneNumber"
                 placeholder="Enter amount seat"
-                required
+                value="0<%= user.phoneNumber %>"
               />
             </div>
             <div class="form-group">
@@ -63,38 +69,47 @@
                 name="email"
                 id="email"
                 placeholder="Enter email"
+                value="<%= user.email %>"
               />
             </div>
             <div class="form-group">
               <label for="gender">Gender</label>
               <select class="form-control select2" name="gender" id="gender">
-                <option value="Pria">Pria</option>
-                <option value="Wanita">Wanita</option>
+                <option value="Pria"
+                <% if(user.gender === "Pria"){ %>
+                    selected 
+                <% } %> 
+                >Pria</option>
+                <option value="Wanita"
+                <% if(user.gender === "Wanita"){ %>
+                    selected 
+                <% } %> 
+                >Wanita</option>
               </select>
             </div>
             <div class="form-group">
               <label for="ttl">TTL</label>
               <input
-                type="date"
+                type="text"
                 class="form-control"
                 name="ttl"
                 id="ttl"
-                placeholder="Enter ttl seat"
-                required
+                placeholder="Enter amount seat"
+                value="<%= user.ttl %>"
               />
             </div>
             <div class="form-group">
               <label for="venue">Venue</label>
-              <div class="select2-purple">
                 <select class="form-control select2" name="venue" id="venue">
-                  <option value="">--Select venue---</option>
                   <% venues.map(venue=>{ %>
-                  <option value="<%= venue._id %>">
+                  <option value="<%= venue._id %>" 
+                    <% if(user.venue.toString() === venue._id.toString()){ %>
+                    selected 
+                    <% } %>>
                     <%= venue.location %>
                   </option>
                   <% }) %>
                 </select>
-              </div>
             </div>
             <div class="form-group">
               <label for="address">Address</label>
@@ -106,8 +121,9 @@
                 placeholder="Enter address"
                 cols="10"
                 rows="5"
-                required
-              ></textarea>
+              >
+value="<%= user.address %>"</textarea
+              >
               <div class="form-group">
                 <label for="image">Foto</label>
                 <input
@@ -118,7 +134,12 @@
                   placeholder="Enter image seat"
                 />
               </div>
-              <img src="" id="preview" alt="" />
+              <img
+                class="mb-2"
+                src="http://localhost:3000/uploads/user/<%= user.thumbnail %> "
+                id="preview"
+                alt=""
+              />
             </div>
           </div>
           <!-- /.card-body -->

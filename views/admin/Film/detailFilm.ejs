@@ -33,6 +33,7 @@
         <!-- form start -->
         <form action="/film/create" method="POST">
           <div class="card-body">
+            <img src="http://localhost:3000/uploads/film/<%= film.thumbnail %> " id="preview" alt="" />
             <div class="form-group">
               <label for="title">Title</label>
               <input
@@ -132,6 +133,7 @@
           <!-- /.card-body -->
           <div class="card-footer">
             <a href="/film" type="submit" class="btn btn-primary">Back</a>
+            <a href="/film/update/<%= film._id %>" class="btn btn-primary">Edit</a>
           </div>
         </form>
       </div>

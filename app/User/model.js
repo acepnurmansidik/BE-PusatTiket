@@ -40,6 +40,16 @@ const schemaUser = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: "Venue",
   },
+  password: {
+    type: String,
+    require: [true, "Password cannot be empty"],
+    minlength: [6, "Min length password must be 9 - 13 character"],
+    maxlength: [15, "Max length password must be 9 - 13 character"],
+  },
+  email: {
+    type: String,
+    require: [true, "Email cannot be empty"],
+  },
 });
 
 module.exports = mongoose.model("User", schemaUser);
