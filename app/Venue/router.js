@@ -9,7 +9,7 @@ router.get("/venue/create", viewAddVenue);
 router.post("/venue/create", actionAddVenue);
 // update
 router.get("/venue/update/:id", viewEditVenue);
-router.post("/venue/update/:id", actionEditVenue);
+router.put("/venue/update/:id", actionEditVenue);
 // delete
 router.delete("/venue/delete/:id", actionDeleteVenue);
 
