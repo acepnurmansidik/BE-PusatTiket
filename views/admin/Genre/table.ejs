@@ -7,23 +7,23 @@
     </tr>
   </thead>
   <tbody>
-    <% genres.map((genre,i)=>{ %> 
-      <tr>
-        <td><%= i+1 %></td>
-        <td><%= genre.name %></td>
-        <td>
-          <form action="/genre/delete/<%= genre._id %>?_method=DELETE">
-            <a
+    <% genres.map((genre,i)=>{ %>
+    <tr>
+      <td><%= i+1 %></td>
+      <td><%= genre.name %></td>
+      <td>
+        <form action="/genre/delete/<%= genre._id %>?_method=DELETE" method="POST">
+          <a
             class="btn btn-warning btn-sm"
-            href="/bank/update/<%= genre._id %>"
+            href="/genre/update/<%= genre._id %>"
             ><i class="fas fa-pencil-alt"></i> Edit</a
           >
-            <button type="submit" class="btn btn-danger btn-sm">
-              <i class="fas fa-trash"></i> Delete
-            </button>
-          </form>
-        </td>
-      </tr>
+          <button type="submit" class="btn btn-danger btn-sm">
+            <i class="fas fa-trash"></i> Delete
+          </button>
+        </form>
+      </td>
+    </tr>
     <% }) %>
   </tbody>
 </table>

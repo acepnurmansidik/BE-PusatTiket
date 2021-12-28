@@ -32,4 +32,38 @@ module.exports = {
       console.log(err.message);
     }
   },
+  viewUpdateGenre: async (req, res) => {
+    try {
+      const { id } = req.params;
+      let genre = await Genre.findOne({ _id: id });
+      console.log(genre);
+      res.render("admin/Genre/updateGenre", {
+        title: `Admin | Update Genre`,
+        genre,
+      });
+    } catch (err) {
+      console.log(err.message);
+    }
+  },
+  actionUpdateGenre: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { name } = req.body;
+
+      await Genre.findOneAndUpdate({ _id: id }, { name });
+      res.redirect("/genre");
+    } catch (err) {
+      console.log(err.message);
+    }
+  },
+  actionDeleteGenre: async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      await Genre.findOneAndRemove({ _id: id });
+      res.redirect("/genre");
+    } catch (err) {
+      console.log(err.message);
+    }
+  },
 };
