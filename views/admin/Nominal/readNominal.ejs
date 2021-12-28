@@ -9,12 +9,12 @@
     <div class="container-fluid">
       <div class="row mb-2">
         <div class="col-sm-6">
-          <h1>Venue</h1>
+          <h1>Nominal</h1>
         </div>
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
-            <li class="breadcrumb-item"><a href="/venue">Home</a></li>
-            <li class="breadcrumb-item active">Update</li>
+            <li class="breadcrumb-item"><a href="/nominal">Home</a></li>
+            <li class="breadcrumb-item active">Create</li>
           </ol>
         </div>
       </div>
@@ -28,20 +28,32 @@
       <!-- general form elements -->
       <div class="card card-primary">
         <div class="card-header">
-          <h3 class="card-title">Create New Venue</h3>
+          <h3 class="card-title">Create New Nominal</h3>
         </div>
         <!-- /.card-header -->
         <!-- form start -->
-        <form action="/venue/create" method="POST">
+        <form action="/nominal/create" method="POST">
           <div class="card-body">
-            <div class="form-group">
-              <label for="location">Location</label>
-              <input type="text" class="form-control" name="location" value="<%= venue.location %>" id="location" placeholder="Enter location"
+            <div
+             class="form-group">
+              <label for="typeName">Type</label>
+              <input
+                type="text"
+                class="form-control"
+                name="typeName"
+                id="typeName"
+                placeholder="Enter new gene"
               />
             </div>
-            <div class="form-group">
-              <label for="address">Address</label>
-              <input type="text" class="form-control" name="address" value="<%= venue.address %>" id="address" placeholder="Enter address"
+            <div
+             class="form-group">
+              <label for="price">Price</label>
+              <input
+                type="number"
+                class="form-control"
+                name="price"
+                id="price"
+                placeholder="Enter new gene"
               />
             </div>
           </div>

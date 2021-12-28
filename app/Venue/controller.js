@@ -33,34 +33,34 @@ module.exports = {
   },
   viewEditVenue: async (req, res) => {
     try {
-        const {id}=req.params
-        let venue = await Venue.findOne({_id:id})
+      const { id } = req.params;
+      let venue = await Venue.findOne({ _id: id });
       res.render("admin/Venue/updateVenue", {
         title: `Admin | Update Venue`,
-        venue
+        venue,
       });
     } catch (err) {
       console.log(err.message);
     }
   },
-  actionEditVenue:async(req, res)=>{
-      try {
-          const {id}=req.params
-          const {location, address}=req.body
+  actionEditVenue: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { location, address } = req.body;
 
-          await Venue.findOneAndUpdate({_id:id},{location, address})
-          res.redirect("/venue")
-      } catch (err) {
-          console.log(err.message);
-      }
+      await Venue.findOneAndUpdate({ _id: id }, { location, address });
+      res.redirect("/venue");
+    } catch (err) {
+      console.log(err.message);
+    }
   },
-  actionDeleteVenue: async(req, res)=>{
-      try {
-          const {id}=req.params
-          await Venue.findOneAndRemove({_id:id})
-          res.redirect("/venue")
-      } catch (err) {
-          console.log(err.message);
-      }
-  }
+  actionDeleteVenue: async (req, res) => {
+    try {
+      const { id } = req.params;
+      await Venue.findOneAndRemove({ _id: id });
+      res.redirect("/venue");
+    } catch (err) {
+      console.log(err.message);
+    }
+  },
 };
