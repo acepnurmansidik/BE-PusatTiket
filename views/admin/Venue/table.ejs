@@ -1,0 +1,31 @@
+<table id="example1" class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Location</th>
+      <th>Address</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% venues.map((venue,i)=>{ %>
+    <tr>
+      <td><%= i+1 %></td>
+      <td><%= venue.location %></td>
+      <td><%= venue.address %></td>
+      <td>
+        <form action="/venue/delete/<%= venue._id %>?_method=DELETE" method="POST">
+          <a
+            class="btn btn-warning btn-sm"
+            href="/venue/update/<%= venue._id %>"
+            ><i class="fas fa-pencil-alt"></i> Edit</a
+          >
+          <button type="submit" class="btn btn-danger btn-sm">
+            <i class="fas fa-trash"></i> Delete
+          </button>
+        </form>
+      </td>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>

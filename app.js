@@ -5,7 +5,8 @@ const cookieParser = require("cookie-parser");
 const logger = require("morgan");
 const methodOverride = require("method-override");
 
-const indexRouter = require("./app/Genre/router");
+const genreRouter = require("./app/Genre/router");
+const venueRouter = require("./app/Venue/router");
 
 const app = express();
 
@@ -25,7 +26,8 @@ app.use(
   express.static(path.join(__dirname, "node_modules/admin-lte"))
 );
 
-app.use("/", indexRouter);
+app.use(genreRouter);
+app.use(venueRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {
