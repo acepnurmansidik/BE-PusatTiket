@@ -6,7 +6,7 @@ const schemaNominal = mongoose.Schema({
     require: [true, "Ticet name connet be empty!"],
   },
   price: {
-    type: String,
+    type: Number,
     require: [true, "Price cannot be empty!"],
   },
 });

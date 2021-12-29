@@ -8,6 +8,7 @@ const methodOverride = require("method-override");
 const genreRouter = require("./app/Genre/router");
 const venueRouter = require("./app/Venue/router");
 const nominalRouter = require("./app/Nominal/router");
+const filmRouter = require("./app/Film/router");
 
 const app = express();
 
@@ -30,6 +31,7 @@ app.use(
 app.use(genreRouter);
 app.use(venueRouter);
 app.use(nominalRouter);
+app.use(filmRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

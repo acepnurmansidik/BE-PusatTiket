@@ -1,0 +1,35 @@
+<table id="example1" class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Title</th>
+      <th>Rating</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% films.map((film,i)=>{ %>
+    <tr>
+      <td><%= i+1 %></td>
+      <td><%= film.title %></td>
+      <td><%= film.rating %></td>
+      <td>
+        <form action="/film/delete/<%= film._id %>?_method=DELETE" method="POST">
+          <a
+            class="btn btn-info btn-sm"
+            href="/film/detail/<%= film._id %>"
+            ><i class="fas fa-info-circle"></i> Detail</a>
+
+          <a
+            class="btn btn-warning btn-sm"
+            href="/film/update/<%= film._id %>"
+            ><i class="fas fa-pencil-alt"></i> Edit</a>
+          <button type="submit" class="btn btn-danger btn-sm">
+            <i class="fas fa-trash"></i> Delete
+          </button>
+        </form>
+      </td>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>
