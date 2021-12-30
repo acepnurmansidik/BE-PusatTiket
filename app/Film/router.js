@@ -4,6 +4,9 @@ const {
   actionAddFilm,
   viewAddFilm,
   viewDetailFilm,
+  viewEditFilm,
+  actionEditFilm,
+  actionDeleteFilm,
 } = require("./controller");
 const router = express.Router();
 
@@ -11,8 +14,13 @@ const router = express.Router();
 router.get("/film", viewFilm);
 // detail
 router.get("/film/detail/:id", viewDetailFilm);
-// update
+// create
 router.get("/film/create", viewAddFilm);
 router.post("/film/create", actionAddFilm);
+// update
+router.get("/film/update/:id", viewEditFilm);
+router.put("/film/update/:id", actionEditFilm);
+// delete
+router.delete("/film/delete/:id", actionDeleteFilm);
 
 module.exports = router;

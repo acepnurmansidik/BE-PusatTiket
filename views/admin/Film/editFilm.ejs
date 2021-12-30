@@ -13,7 +13,7 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="/film">Home</a></li>
-            <li class="breadcrumb-item active">Detail</li>
+            <li class="breadcrumb-item active">Update</li>
           </ol>
         </div>
       </div>
@@ -31,7 +31,7 @@
         </div>
         <!-- /.card-header -->
         <!-- form start -->
-        <form action="/film/create" method="POST">
+        <form action="/film/update/<%= film._id %>?_method=PUT" method="POST">
           <div class="card-body">
             <div class="form-group">
               <label for="title">Title</label>
@@ -42,7 +42,6 @@
                 id="title"
                 placeholder="Enter title film"
                 value="<%= film.title %>"
-                disabled
               />
             </div>
             <div class="form-group">
@@ -53,16 +52,15 @@
                   multiple="multiple"
                   name="genres"
                   id="genres"
-                  disabled
                 >
                   <% genres.map(genre=>{ %>
-                  <option value="<%= genre._id %>" 
-                    <% film.genres.map(item=>{ %>
-                      <% if(item._id.toString() === genre._id.toString()){ %>
-                        selected
-                      <% } %> 
-                    <% }) %> 
-                  ><%= genre.name %></option>
+                        <option value="<%= genre._id %>" 
+                            <% film.genres.map(item=>{ %>
+                                <% if(item._id.toString()===genre._id.toString()){ %>
+                                    selected
+                                <% } %> 
+                            <% }) %>
+                        ><%= genre.name %></option>
                   <% }) %>
                 </select>
               </div>
@@ -76,7 +74,6 @@
                 id="actor"
                 placeholder="Enter actor"
                 value="<%= film.actor %>"
-                disabled
               />
             </div>
             <div class="form-group">
@@ -88,7 +85,6 @@
                 id="director"
                 placeholder="Enter directore"
                 value="<%= film.director %>"
-                disabled
               />
             </div>
             <div class="form-group">
@@ -100,7 +96,6 @@
                 id="writter"
                 placeholder="Enter writter"
                 value="<%= film.writter %>"
-                disabled
               />
             </div>
             <div class="form-group">
@@ -112,7 +107,6 @@
                 id="rating"
                 placeholder="Enter rating"
                 value="<%= film.rating %>"
-                disabled
               />
             </div>
             <div class="form-group">
@@ -123,13 +117,15 @@
                 cols="20"
                 rows="6"
                 class="form-control"
-                disabled
               >
 <%= film.synopsis %></textarea
               >
             </div>
           </div>
           <!-- /.card-body -->
+          <div class="card-footer">
+            <button type="submit" class="btn btn-primary">Submit</button>
+          </div>
         </form>
       </div>
       <!-- /.card -->
