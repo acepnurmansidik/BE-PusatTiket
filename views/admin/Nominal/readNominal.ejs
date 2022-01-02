@@ -1,5 +1,4 @@
-<%- include ../../partials/header.ejs %> 
-<%- include ../../partials/navbar.ejs%> 
+<%- include ../../partials/header.ejs %> <%- include ../../partials/navbar.ejs%>
 <%- include ../../partials/sidebar.ejs %>
 
 <!-- Content Wrapper. Contains page content -->
@@ -34,8 +33,7 @@
         <!-- form start -->
         <form action="/nominal/create" method="POST">
           <div class="card-body">
-            <div
-             class="form-group">
+            <div class="form-group">
               <label for="typeName">Type</label>
               <input
                 type="text"
@@ -43,10 +41,10 @@
                 name="typeName"
                 id="typeName"
                 placeholder="Enter new gene"
+                required
               />
             </div>
-            <div
-             class="form-group">
+            <div class="form-group">
               <label for="price">Price</label>
               <input
                 type="number"
@@ -54,6 +52,7 @@
                 name="price"
                 id="price"
                 placeholder="Enter new gene"
+                required
               />
             </div>
           </div>

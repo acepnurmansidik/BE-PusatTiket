@@ -15,17 +15,17 @@ const schemaFilm = mongoose.Schema({
   },
   director: {
     type: String,
-    require: [true, "Director cannot be emepty!"],
+    require: [true, "Director cannot be empty!"],
   },
   writter: {
     type: String,
-    require: [true, "Writter cannot be emepty!"],
+    require: [true, "Writter cannot be empty!"],
   },
   rating: {
     type: String,
-    require: [true, "Rating cannot be emepty!"],
+    require: [true, "Rating cannot be empty!"],
   },
-  image: {
+  thumbnail: {
     type: String,
   },
   genres: [
@@ -34,6 +34,10 @@ const schemaFilm = mongoose.Schema({
       ref: "Genre",
     },
   ],
+  showTime: {
+    type: Date,
+    require: [true, "Show time cannot be empty!"],
+  },
 });
 
 module.exports = mongoose.model("Film", schemaFilm);
