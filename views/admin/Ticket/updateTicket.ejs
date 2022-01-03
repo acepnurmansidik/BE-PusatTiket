@@ -13,7 +13,7 @@
         <div class="col-sm-6">
           <ol class="breadcrumb float-sm-right">
             <li class="breadcrumb-item"><a href="/ticket">Home</a></li>
-            <li class="breadcrumb-item active">Detail</li>
+            <li class="breadcrumb-item active">Update</li>
           </ol>
         </div>
       </div>
@@ -27,34 +27,38 @@
       <!-- general form elements -->
       <div class="card card-primary">
         <div class="card-header">
-          <h3 class="card-title">Detail Ticket</h3>
+          <h3 class="card-title">Update Ticket</h3>
         </div>
         <!-- /.card-header -->
         <!-- form start -->
-        <form action="/ticket" method="POST">
+        <form
+          action="/ticket/update/<%= ticket._id %>?_method=PUT"
+          method="POST"
+        >
           <div class="card-body">
             <div class="form-group">
               <label for="film">Film</label>
               <div class="select2-purple">
-                <input
-                  type="text"
-                  class="form-control"
-                  name="seatNumber"
-                  id="seatNumber"
-                  placeholder="Enter amount seat"
-                  value="<%= ticket.film.title %>"
+                <select
+                  class="form-control select2"
+                  name="film"
+                  id="film"
                   disabled
-                />
+                >
+                  <option value="<%= ticket.film._id %>" selected>
+                    <%= ticket.film.title %>
+                  </option>
+                </select>
               </div>
             </div>
             <div class="form-group">
-              <label for="nominals">Nominal</label>
+              <label for="nominal">Nominal</label>
               <div class="select2-purple">
                 <select
                   class="form-control select2"
-                  name="nominals"
+                  name="nominal"
                   multiple="multiple"
-                  id="nominals"
+                  id="nominal"
                   disabled
                 >
                   <option value="<%= ticket.nominal._id %>" selected>
@@ -72,14 +76,14 @@
                 id="seatNumber"
                 placeholder="Enter amount seat"
                 value="<%= ticket.seatNumber %>"
-                disabled
+                required
               />
             </div>
           </div>
           <!-- /.card-body -->
 
           <div class="card-footer">
-            <a href="/ticket" type="submit" class="btn btn-primary">Back</a>
+            <button type="submit" class="btn btn-primary">Submit</button>
           </div>
         </form>
       </div>

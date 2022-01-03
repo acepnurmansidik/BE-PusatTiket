@@ -44,10 +44,15 @@ module.exports = {
     try {
       const { film, nominals, seatNumber } = req.body;
 
-      nominals.map(async (nominal) => {
-        let ticket = await Ticket({ film, nominal, seatNumber });
+      if (typeof nominals === "string") {
+        let ticket = await Ticket({ film, nominal: nominals, seatNumber });
         await ticket.save();
-      });
+      } else {
+        nominals.map(async (nominal) => {
+          let ticket = await Ticket({ film, nominal, seatNumber });
+          await ticket.save();
+        });
+      }
 
       req.flash("alertMessage", `Successfuly create ticket`);
       req.flash("alertStatus", `success`);
@@ -69,6 +74,54 @@ module.exports = {
         title: `Admin | Detail Ticket`,
         ticket,
       });
+    } catch (err) {
+      req.flash("alertMessage", `${err.message}`);
+      req.flash("alertStatus", `danger`);
+      res.redirect("/ticket");
+    }
+  },
+  viewUpdateTicket: async (req, res) => {
+    try {
+      const { id } = req.params;
+
+      const ticket = await Ticket.findOne({ _id: id })
+        .populate("film", "title")
+        .populate("nominal", "typeName price");
+
+      res.render("admin/Ticket/updateTicket", {
+        title: `Admin | Update Ticket`,
+        ticket,
+      });
+    } catch (err) {
+      req.flash("alertMessage", `${err.message}`);
+      req.flash("alertStatus", `danger`);
+      res.redirect("/ticket");
+    }
+  },
+  actionUpdateTicket: async (req, res) => {
+    try {
+      const { id } = req.params;
+      const payload = req.body;
+
+      await Ticket.findOneAndUpdate({ _id: id }, { ...payload });
+
+      req.flash("alertMessage", `Successfuly update ticket`);
+      req.flash("alertStatus", `success`);
+      res.redirect("/ticket");
+    } catch (err) {
+      req.flash("alertMessage", `${err.message}`);
+      req.flash("alertStatus", `danger`);
+      res.redirect("/ticket");
+    }
+  },
+  actionDeleteTicket: async (req, res) => {
+    try {
+      const { id } = req.params;
+      await Ticket.findByIdAndRemove({ _id: id });
+
+      req.flash("alertMessage", `Successfuly delete ticket`);
+      req.flash("alertStatus", `success`);
+      res.redirect("/ticket");
     } catch (err) {
       req.flash("alertMessage", `${err.message}`);
       req.flash("alertStatus", `danger`);
