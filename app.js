@@ -12,6 +12,7 @@ const venueRouter = require("./app/Venue/router");
 const nominalRouter = require("./app/Nominal/router");
 const filmRouter = require("./app/Film/router");
 const ticketRouter = require("./app/Ticket/router");
+const userRouter = require("./app/User/router");
 
 const app = express();
 
@@ -46,6 +47,7 @@ app.use(venueRouter);
 app.use(nominalRouter);
 app.use(filmRouter);
 app.use(ticketRouter);
+app.use(userRouter);
 
 // catch 404 and forward to error handler
 app.use(function (req, res, next) {

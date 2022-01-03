@@ -1,0 +1,45 @@
+<table id="example1" class="table table-bordered table-striped">
+  <thead>
+    <tr>
+      <th>No</th>
+      <th>Name</th>
+      <th>Gender</th>
+      <th>Phone</th>
+      <th>Status</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% users.map((user,i)=>{ %>
+    <tr>
+      <td><%= i+1 %></td>
+      <td><%= user.name %></td>
+      <td><%= user.gender %></td>
+      <td><%= user.phoneNumber %></td>
+      <td>
+        <% if(user.status==="disable"){ %>
+        <span class="badge badge-danger">not active</span>
+        <% }else{ %>
+        <span class="badge badge-success">active</span>
+        <% } %>
+      </td>
+      <td>
+        <form
+          action="/user/delete/<%= user._id %>?_method=DELETE"
+          method="POST"
+        >
+          <a class="btn btn-info btn-sm" href="/user/detail/<%= user._id %>"
+            ><i class="fas fa-info-circle"></i> Detail</a
+          >
+          <a class="btn btn-warning btn-sm" href="/user/update/<%= user._id %>"
+            ><i class="fas fa-pencil-alt"></i> Edit</a
+          >
+          <button type="submit" class="btn btn-danger btn-sm">
+            <i class="fas fa-trash"></i> Delete
+          </button>
+        </form>
+      </td>
+    </tr>
+    <% }) %>
+  </tbody>
+</table>
