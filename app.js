@@ -7,6 +7,7 @@ const methodOverride = require("method-override");
 const flash = require("connect-flash");
 const session = require("express-session");
 
+const dashboardRouter = require("./app/Dashboard/router");
 const genreRouter = require("./app/Genre/router");
 const venueRouter = require("./app/Venue/router");
 const nominalRouter = require("./app/Nominal/router");
@@ -42,6 +43,7 @@ app.use(
   express.static(path.join(__dirname, "node_modules/admin-lte"))
 );
 
+app.use(dashboardRouter);
 app.use(genreRouter);
 app.use(venueRouter);
 app.use(nominalRouter);
